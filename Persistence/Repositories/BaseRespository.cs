@@ -69,6 +69,27 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
             : new RepositoryResult { Success = false, Error = "Entity not found." };
     }
 
+    public virtual async Task<RepositoryResult<int>> CountAsync(Expression<Func<TEntity, bool>> expression)
+    {
+        try
+        {
+            var count = await _table.CountAsync(expression);
+            return new RepositoryResult<int>
+            {
+                Success = true,
+                Result = count
+            };
+        }
+        catch (Exception ex)
+        {
+            return new RepositoryResult<int>
+            {
+                Success = false,
+                Error = ex.Message
+            };
+        }
+    }
+
     public virtual async Task<RepositoryResult> AddAsync(TEntity entity)
     {
         try
