@@ -15,6 +15,21 @@ public class BookingService(IBookingRepository bookingRepository) : IBookingServ
     {
         try
         {
+            // Check if the user has already booked this event
+            var existingBookingResult = await _bookingRepository.GetAsync(
+                    b => b.UserId == request.UserId && b.EventId == request.EventId
+                );
+
+            if (existingBookingResult.Success && existingBookingResult.Result != null)
+            {
+                return new BookingResult
+                {
+                    Success = false,
+                    Error = "User has already booked this event."
+                };
+            }
+
+            // Proceeds to create booking if no existing booking is found
             var bookingEntity = new BookingEntity
             {
                 UserId = request.UserId,
