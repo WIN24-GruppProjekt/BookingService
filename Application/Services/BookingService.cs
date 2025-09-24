@@ -16,11 +16,11 @@ public class BookingService(IBookingRepository bookingRepository) : IBookingServ
         try
         {
             // Check if the user has already booked this event
-            var existingBookingResult = await _bookingRepository.GetAsync(
-                    b => b.UserId == request.UserId && b.EventId == request.EventId
-                );
+            var alreadyExists = await _bookingRepository.AlreadyExistsAsync(
+                b => b.UserId == request.UserId && b.EventId == request.EventId
+            );
 
-            if (existingBookingResult.Success && existingBookingResult.Result != null)
+            if (alreadyExists.Success)
             {
                 return new BookingResult
                 {
@@ -47,6 +47,39 @@ public class BookingService(IBookingRepository bookingRepository) : IBookingServ
             return new BookingResult { Success = false, Error = ex.Message };
         }
     }
+
+    // This is not necessarily more lightweight than fetching all bookings since this can quickly spiral to N+1 requests. However, there are instances where the only information needed from the DB is active participants (i.e. to see if "Book Now" button should be active or not in frontend)
+    public async Task<BookingResult<int>> GetActiveParticipantsForEventAsync(string eventId)
+    {
+        try
+        {
+            var countResult = await _bookingRepository.CountAsync(b => b.EventId == eventId);
+
+            if (!countResult.Success)
+            {
+                return new BookingResult<int>
+                {
+                    Success = false,
+                    Error = countResult.Error
+                };
+            }
+
+            return new BookingResult<int>
+            {
+                Success = true,
+                Result = countResult.Result
+            };
+        }
+        catch (Exception ex)
+        {
+            return new BookingResult<int>
+            {
+                Success = false,
+                Error = ex.Message
+            };
+        }
+    }
+
 
     // Fetches all bookings for a user. The ActiveParticipants field is updated here to reflect the number of bookings for the event.
     // Note: ActiveParticipants is done terribly here. In monolithic architecture, this is resolved much cleaner and with much higher efficiency since the count is updated upon booking dierctly on the Event entity. Here we have to query on reload to update which is jank as hell. This can be improved by doing this using SQL commands instead of doing everything in memory, but I'm not sure that effort is worth it.

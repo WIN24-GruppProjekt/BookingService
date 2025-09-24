@@ -12,5 +12,6 @@ public interface IBaseRepository<TEntity> where TEntity : class
     Task<RepositoryResult<IEnumerable<TEntity>>> GetAllAsync(Expression<Func<TEntity, bool>>? expression = null);
     Task<RepositoryResult<TEntity?>> GetAsync(Expression<Func<TEntity, bool>> expression);
     Task<RepositoryResult> UpdateAsync(TEntity entity);
+    Task<RepositoryResult<int>> CountAsync(Expression<Func<TEntity, bool>> expression);
 
 }
