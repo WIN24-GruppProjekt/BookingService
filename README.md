@@ -1,11 +1,11 @@
-# 📅 BookingService
+# BookingService
 
 BookingService is a .NET 9 Web API that acts as a **booking ledger** for users registering to events.  
 It provides booking creation, deletion, and querying functionality, while keeping track of active participants per event.
 
 ---
 
-## ✨ Features
+## Features
 
 - Manage **bookings**:
   - Create bookings for users against events
@@ -26,7 +26,7 @@ It provides booking creation, deletion, and querying functionality, while keepin
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 ```
 BookingService/
 │── Application/
@@ -47,7 +47,7 @@ BookingService/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
@@ -59,7 +59,7 @@ BookingService/
 }
 ```
 
-## 📌 API Endpoints
+## API Endpoints
 
 Bookings
 
@@ -73,7 +73,7 @@ Bookings
 | DELETE |  `/api/bookings/event/{eventId}`             | Delete all bookings for an event               |
 
 
-## 🧪 Example Requests
+## Example Requests
 
 ### Create Booking
 ```json
@@ -101,7 +101,7 @@ GET /api/bookings/event/event-456/participants
 DELETE /api/bookings/booking-guid-here
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 - .NET 9
 - Entity Framework Core
 - SQL Server
