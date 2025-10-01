@@ -43,7 +43,7 @@ BookingService/
 │ └── Controllers/ # API controller (BookingsController)
 │
 │── Program.cs # Entry point & dependency injection
-``` 
+```
 
 ---
 
@@ -62,16 +62,16 @@ BookingService/
 ## 📌 API Endpoints
 
 Bookings
-```
+
 | Method | Endpoint                                     | Description                                    |
 | ------ | -------------------------------------------- | ---------------------------------------------- |
-| POST   | /api/bookings                                | Create a new booking                           |
-| GET    |  /api/bookings/user/{userId}                 | Get all bookings for a specific user           |
-| GET    |  /api/bookings/event/{eventId}/participants  | Get number of active participants for an event |
-| DELETE |  /api/bookings/{bookingId}                   | Delete a booking by ID                         |
-| DELETE |  /api/bookings/user/{userId}                 | Delete all bookings for a user                 |
-| DELETE |  /api/bookings/event/{eventId}               | Delete all bookings for an event               |
-```
+| POST   |  `/api/bookings`                             | Create a new booking                           |
+| GET    |  `/api/bookings/user/{userId}`               | Get all bookings for a specific user           |
+| GET    |  `/api/bookings/event/{eventId}/participants`| Get number of active participants for an event |
+| DELETE |  `/api/bookings/{bookingId}`                 | Delete a booking by ID                         |
+| DELETE |  `/api/bookings/user/{userId}`               | Delete all bookings for a user                 |
+| DELETE |  `/api/bookings/event/{eventId}`             | Delete all bookings for an event               |
+
 
 ## 🧪 Example Requests
 
